@@ -17,8 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import okhttp3.Response;
-
 @Controller
 public class AuthorizeController {
 
@@ -49,7 +47,6 @@ public class AuthorizeController {
         accessTokenDTO.setState(state);
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setClient_secret(clientSecret);
-
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser = githubProvider.getUser(accessToken);
         if(githubUser!=null)
@@ -61,6 +58,7 @@ public class AuthorizeController {
             user.setAccount_id(String.valueOf(githubUser.getId()));
             user.setGmt_create(System.currentTimeMillis());
             user.setGmt_modified(user.getGmt_create());
+            user.setImageUrl(githubUser.getAvatar_url());
             userMapper.insert(user);
             Cookie cookie=new Cookie("token", token);
             response.addCookie(cookie);
