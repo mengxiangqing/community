@@ -1,50 +1,81 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.thymeleaf.org">   
+<html xmlns="http://www.thymeleaf.org">
+
 <head>
-    <title>脑火</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/bootstrap-theme.css"/>
+    <title>人生驿站</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/bootstrap-theme.css" />
+    <link rel="stylesheet" href="css/community.css">
     <script src="js/bootstrap.js" type="application/javascript"></script>
 </head>
-<body>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">脑火</span>
 
-            </button>
-            <a class="navbar-brand" href="#">脑火</a>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">人生驿站</span>
+
+                </button>
+                <a class="navbar-brand" href="/">人生驿站</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="搜索话题">
+                    </div>
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li th:if="${session.user != null}">
+                        <a href="/publish">发布文章</a>
+                    </li>
+                    <li class="dropdown" th:if="${session.user != null}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false" th:text="${session.user.getName()}"><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">消息中心</a></li>
+                            <li><a href="#">个人资料</a></li>
+                            <li><a href="#">退出登录</a></li>
+                        </ul>
+                    </li>
+                    <li th:if="${session.user==null}">
+                        <a
+                            href="https://github.com/login/oauth/authorize?client_id=e50a732464a6662264e6&redirect_uri=http://localhost:8080/callback&scope=user&state=1">登录</a>
+                    </li>
+
+                </ul>
+            </div>
         </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="搜索话题">
+    </nav>
+    <div class="container-fluid main">
+        <div class=" row">
+            <div class=" col-1g-9 col-md-12 col-sm-12 col-xs-12">
+                <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span>发现</h2>
+                <tr class="glyphicon glyphicon-list" th:text="${textList}"></tr>
+                <hr>
+                <div class=" media" th:each="text : ${textList}">
+                    <div class=" media-left">
+                        <a href="#">
+                            <img class="media-object img-rounded" th:src="${text.user.avatarUrl}">
+                        </a>
+                    </div>
+                    <div class=" media-body">
+                        <h4 class=" media-heading" th:text="${text.title}"></h4>
+                        <span th:text="${text.description}"></span>
+                        <span class="text-desc"> <span th:text="${text.commentCount}"></span>个回复·<span th:text="${text.viewCount}"></span>个浏览
+                        </span>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-default">搜索</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li th:if="${session.user != null}">
-                    <a href="/publish">发布文章</a>
-                </li>
-                <li class="dropdown" th:if="${session.user != null}">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false" th:text="${session.user.getName()}"><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">消息中心</a></li>
-                        <li><a href="#"> 个人资料</a></li>
-                        <li><a href="#">退出登录</a></li>
-                    </ul>
-                </li>
-                <li th:if="${session.user==null}">
-                    <a href="https://github.com/login/oauth/authorize?client_id=e50a732464a6662264e6&redirect_uri=http://localhost:8080/callback&scope=user&state=1">登录</a>
-                </li>
-                
-            </ul>
+            </div>
+            <div class=" col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <h3>热门话题</h3>
+
+            </div>
         </div>
     </div>
-</nav>
 </body>
+
 </html>
