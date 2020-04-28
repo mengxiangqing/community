@@ -1,10 +1,8 @@
 package com.example.demo.controller;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import com.example.demo.mapper.TextMapper;
-import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.Text;
 import com.example.demo.model.User;
 
@@ -19,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PublishController {
     @Autowired
     private TextMapper textMapper;
-
-    @Autowired
-    private UserMapper userMapper;
 
     @GetMapping("/publish")
     public String publish() {
@@ -48,20 +43,8 @@ public class PublishController {
             model.addAttribute("error", "板块不能为空");
             return "publish";
         }
-        User user = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null && cookies.length != 0)
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    String token = cookie.getValue();
-                    user = userMapper.findByToken(token);
-                    if (user != null) {
-                        request.getSession().setAttribute("user", user);
+        User user=(User)request.getSession().getAttribute("user");
 
-                    }
-                    break;
-                }
-            }
         if (user == null) {
             model.addAttribute("error", "用户未登录");
             return "publish";
