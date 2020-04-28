@@ -64,7 +64,7 @@
                         <h4 class=" media-heading" th:text="${text.title}"></h4>
                         <span th:text="${text.description}"></span>
                         <span class="text-desc"> <span th:text="${text.commentCount}"></span>个回复·<span
-                                th:text="${text.viewCount}"></span>个浏览
+                                th:text="${text.viewCount}"></span>个浏览·<span th:text="${#dates.format(text.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
                         </span>
                     </div>
                 </div>
