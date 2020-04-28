@@ -89,4 +89,14 @@ public class TextService {
         return paginationDTO;
 	}
 
+	public TextDTO getById(Integer id) {
+        Text text=textMapper.getBuId(id);
+        TextDTO textDTO=new TextDTO();
+        BeanUtils.copyProperties(text, textDTO);
+        User user = userMapper.findById(text.getCreator());
+        textDTO.setUser(user);
+
+		return textDTO;
+	}
+
 }

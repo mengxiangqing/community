@@ -24,6 +24,9 @@ public interface TextMapper {
 
     @Select("select count(1) from text where creator=#{userId}")
 	Integer countById(Integer userId);
+
+    @Select("select * from text where id=#{id}")
+	Text getBuId(Integer id);
     
     
 
