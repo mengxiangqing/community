@@ -26,7 +26,13 @@ public class TextService {
 
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalCount = textMapper.count();
-        paginationDTO.setPagination(totalCount, page, size);
+        Integer totalPage;
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
+        } else {
+            totalPage = totalCount / size + 1;
+        }
+        paginationDTO.setPagination(totalPage, page);
         if (page < 1) {
             page = 1;
         }
@@ -48,5 +54,39 @@ public class TextService {
 
         return paginationDTO;
     }
+
+	public PaginationDTO list(Integer userId, Integer page, Integer size) {
+        Integer totalPage;
+        Integer totalCount = textMapper.countById(userId);
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
+        } else {
+            totalPage = totalCount / size + 1;
+        }
+
+        PaginationDTO paginationDTO = new PaginationDTO();
+        if (page < 1) {
+            page = 1;
+        }
+        if (page > totalPage) {
+            page = totalPage;
+        }
+        paginationDTO.setPagination(totalPage, page);
+
+        Integer offSet = size * (page - 1);
+        List<Text> texts = textMapper.myList(userId,offSet, size);
+        List<TextDTO> textDtoList = new ArrayList<>();
+
+        for (Text text : texts) {
+            User user = userMapper.findById(text.getCreator());
+            TextDTO textDTO = new TextDTO();
+            BeanUtils.copyProperties(text, textDTO);
+            textDTO.setUser(user);
+            textDtoList.add(textDTO);
+        }
+        paginationDTO.setTexts(textDtoList);
+
+        return paginationDTO;
+	}
 
 }

@@ -18,4 +18,14 @@ public interface TextMapper {
     
     @Select("select count(1) from text")
     Integer count();
+
+    @Select("select * from text where creator=#{userId} limit #{offSet},#{size}")
+    List<Text> myList(Integer userId, Integer offSet, Integer size);
+
+    @Select("select count(1) from text where creator=#{userId}")
+	Integer countById(Integer userId);
+    
+    
+
+
 }
