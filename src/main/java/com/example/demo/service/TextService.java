@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.demo.dto.PaginationDTO;
 import com.example.demo.dto.TextDTO;
 import com.example.demo.mapper.TextMapper;
 import com.example.demo.mapper.UserMapper;
@@ -21,9 +22,21 @@ public class TextService {
     @Autowired
     private UserMapper userMapper;
 
-    public List<TextDTO> list() {
-        List<Text> texts = textMapper.list();
+    public PaginationDTO list(Integer page, Integer size) {
+
+        PaginationDTO paginationDTO = new PaginationDTO();
+        Integer totalCount = textMapper.count();
+        paginationDTO.setPagination(totalCount, page, size);
+        if (page < 1) {
+            page = 1;
+        }
+        if (page > paginationDTO.getTotalPage()) {
+            page = paginationDTO.getTotalPage();
+        }
+        Integer offSet = size * (page - 1);
+        List<Text> texts = textMapper.list(offSet, size);
         List<TextDTO> textDtoList = new ArrayList<>();
+
         for (Text text : texts) {
             User user = userMapper.findById(text.getCreator());
             TextDTO textDTO = new TextDTO();
@@ -31,7 +44,9 @@ public class TextService {
             textDTO.setUser(user);
             textDtoList.add(textDTO);
         }
-        return textDtoList;
+        paginationDTO.setTexts(textDtoList);
+
+        return paginationDTO;
     }
 
 }

@@ -13,6 +13,9 @@ public interface TextMapper {
     @Insert("insert into text(title,description,gmt_create,gmt_modified,creator)values(#{title},#{description},#{gmtCreate},#{gmtModified},#{creator})")
     void create(Text text);
 
-    @Select("select * from text")
-	List<Text> list();
+    @Select("select * from text limit #{offSet},#{size}")
+    List<Text> list(Integer offSet, Integer size);
+    
+    @Select("select count(1) from text")
+    Integer count();
 }
