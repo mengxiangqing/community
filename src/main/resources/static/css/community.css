@@ -31,3 +31,25 @@ body {
     margin-bottom: 15px;
 
 }
+.comments{
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+    padding-bottom: 5px;
+}
+.comment-hr{
+    margin-top: 0;
+}
+.comment-operate{
+    display: block;
+    color: #999999;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+.comment-operate .icon{
+    margin-right: 6px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.comment-operate .icon:hover{
+    color: #499ef3;
+}
