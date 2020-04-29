@@ -12,13 +12,14 @@ public class PaginationDTO {
     private boolean showFirstPage;
     private boolean showNext;
     private boolean showEndPage;
-    private  Integer totalPage;// 最后一页
+    private Integer totalPage;// 最后一页
 
     private Integer page;
     private List<Integer> pages = new ArrayList<>();
 
+    // 设置分页
     public void setPagination(Integer totalPage, Integer page) {
-        this.totalPage=totalPage;
+        this.totalPage = totalPage;
         this.page = page;
         pages.add(page);
         for (int i = 1; i <= 3; i++) {

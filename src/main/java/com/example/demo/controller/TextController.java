@@ -18,6 +18,8 @@ public class TextController {
     public String text(@PathVariable(name = "id") Integer id,
                        Model model) {
        TextDTO textDTO= textService.getById(id);
+       //增加阅读数
+       textService.incView(id);
        model.addAttribute("text", textDTO);
         return "text";
     }

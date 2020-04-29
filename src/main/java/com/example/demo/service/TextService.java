@@ -25,7 +25,9 @@ public class TextService {
     public PaginationDTO list(Integer page, Integer size) {
 
         PaginationDTO paginationDTO = new PaginationDTO();
+        // 数据总数
         Integer totalCount = textMapper.count();
+        // 计算页码
         Integer totalPage;
         if (totalCount == 0) {
             totalPage = 1;
@@ -39,6 +41,7 @@ public class TextService {
             totalPage = 1;
         }
         paginationDTO.setPagination(totalPage, page);
+        // 页码数据处理
         if (page < 1) {
             page = 1;
         } else if (page > paginationDTO.getTotalPage()) {
@@ -100,10 +103,10 @@ public class TextService {
     }
 
     public TextDTO getById(Integer id) {
-        Text text = textMapper.getById(id);
-        TextDTO textDTO = new TextDTO();
-        BeanUtils.copyProperties(text, textDTO);
-        User user = userMapper.findById(text.getCreator());
+        Text text = textMapper.getById(id);// 通过id找到文章
+        TextDTO textDTO = new TextDTO();// 创建传输对象
+        BeanUtils.copyProperties(text, textDTO);// 复制过去
+        User user = userMapper.findById(text.getCreator());// 通过作者找到用户表中的用户
         textDTO.setUser(user);
 
         return textDTO;
@@ -121,6 +124,13 @@ public class TextService {
             text.setGmtModified(System.currentTimeMillis());
             textMapper.update(text);
         }
+    }
+
+    public void incView(Integer id) {
+        Text text = textMapper.getById(id);
+        text.setViewCount(text.getViewCount() + 1);
+
+        textMapper.updateViewCount(text);
     }
 
 }
