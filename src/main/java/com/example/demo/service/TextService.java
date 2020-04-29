@@ -128,8 +128,6 @@ public class TextService {
 
     public void incView(Integer id) {
         Text text = textMapper.getById(id);
-        text.setViewCount(text.getViewCount() + 1);
-
         textMapper.updateViewCount(text);
     }
 

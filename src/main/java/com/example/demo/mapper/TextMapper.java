@@ -40,6 +40,6 @@ public interface TextMapper {
     void update(Text text);
 
     // 更新阅读数
-    @Update("update text set view_count=#{viewCount} where id=#{id} ")
+    @Update("update text set view_count=view_count+1 where id=#{id} ")
     void updateViewCount(Text text);
 }
