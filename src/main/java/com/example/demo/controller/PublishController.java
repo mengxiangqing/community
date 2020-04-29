@@ -33,7 +33,7 @@ public class PublishController {
         TextDTO text = textService.getById(id);
         model.addAttribute("title", text.getTitle());// 为了回显
         model.addAttribute("description", text.getDescription());
-        model.addAttribute("column", text.getColumn());
+        model.addAttribute("tag", text.getTag());
         model.addAttribute("id", text.getId());
         return "publish";
     }
@@ -41,13 +41,13 @@ public class PublishController {
     @PostMapping("/publish")
     public String DoPublish(@RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "description", required = false) String description,
-            @RequestParam(value = "title", required = false) String column, // 暂时将标题作为专栏
+            @RequestParam(value = "title", required = false) String tag, // 暂时将标题作为专栏
             @RequestParam(value = "id", required = false) Integer id,
             HttpServletRequest request, 
             Model model) {
         model.addAttribute("title", title);// 为了回显
         model.addAttribute("description", description);
-        model.addAttribute("column", column);
+        model.addAttribute("tag", tag);
         if (title == null || title == "") {
             model.addAttribute("error", "标题不能为空");
             return "publish";
@@ -56,7 +56,7 @@ public class PublishController {
             model.addAttribute("error", "内容不能为空");
             return "publish";
         }
-        if (column == null || column == "") {
+        if (tag == null || tag == "") {
             model.addAttribute("error", "板块不能为空");
             return "publish";
         }
@@ -69,7 +69,7 @@ public class PublishController {
         Text text = new Text();
         text.setTitle(title);
         text.setDescription(description);
-        text.setColumn(column);
+        text.setTag(tag);
         text.setCreator(user.getId());
         text.setCommentCount(1);
         text.setLikeCount(2);

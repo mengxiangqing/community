@@ -9,7 +9,7 @@ public class TextDTO {
     private Integer id;
     private String title;
     private String description;
-    private String column;
+    private String tag;
     private Integer creator;
     private Long gmtCreate;
     private Long gmtModified;
