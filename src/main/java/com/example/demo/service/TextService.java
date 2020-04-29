@@ -27,16 +27,24 @@ public class TextService {
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalCount = textMapper.count();
         Integer totalPage;
+        if(totalCount==0)
+        {
+            totalPage=1;
+        }
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
         } else {
             totalPage = totalCount / size + 1;
         }
+        if(totalCount==0)
+        {
+            totalPage=1;
+        }
         paginationDTO.setPagination(totalPage, page);
         if (page < 1) {
             page = 1;
         }
-        if (page > paginationDTO.getTotalPage()) {
+       else if (page > paginationDTO.getTotalPage()) {
             page = paginationDTO.getTotalPage();
         }
         Integer offSet = size * (page - 1);
@@ -63,13 +71,20 @@ public class TextService {
         } else {
             totalPage = totalCount / size + 1;
         }
-
+        if(totalCount==0)
+        {
+            totalPage=1;
+        }
         PaginationDTO paginationDTO = new PaginationDTO();
         if (page < 1) {
             page = 1;
         }
         if (page > totalPage) {
             page = totalPage;
+        }
+        if(totalCount==0)
+        {
+            totalPage=1;
         }
         paginationDTO.setPagination(totalPage, page);
 

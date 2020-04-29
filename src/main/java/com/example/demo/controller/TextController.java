@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.TextDTO;
-import com.example.demo.mapper.TextMapper;
 import com.example.demo.service.TextService;
 
 import org.springframework.beans.factory.annotation.Autowired;
