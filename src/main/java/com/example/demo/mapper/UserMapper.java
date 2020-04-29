@@ -21,7 +21,7 @@ public interface UserMapper {
 
     @Select("select * from user where account_id=#{account_id}")
 	User findByAccountId(String account_id);
-
+ 
     @Update("update user set name=#{name},token=#{token},gmt_modified=#{gmt_modified},image_url=#{imageUrl}where account_id=#{account_id} ")
 	void update(User dbUser);
 

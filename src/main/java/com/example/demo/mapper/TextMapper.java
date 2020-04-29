@@ -7,6 +7,7 @@ import com.example.demo.model.Text;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface TextMapper {
@@ -26,7 +27,10 @@ public interface TextMapper {
 	Integer countById(Integer userId);
 
     @Select("select * from text where id=#{id}")
-	Text getBuId(Integer id);
+	Text getById(Integer id);
+
+    @Update("update text set title=#{title},description=#{description},gmt_modified=#{gmtModified} where id=#{id} ")
+	void update(Text text);
     
     
 

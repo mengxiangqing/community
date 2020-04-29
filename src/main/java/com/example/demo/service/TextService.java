@@ -27,24 +27,21 @@ public class TextService {
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalCount = textMapper.count();
         Integer totalPage;
-        if(totalCount==0)
-        {
-            totalPage=1;
+        if (totalCount == 0) {
+            totalPage = 1;
         }
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
         } else {
             totalPage = totalCount / size + 1;
         }
-        if(totalCount==0)
-        {
-            totalPage=1;
+        if (totalCount == 0) {
+            totalPage = 1;
         }
         paginationDTO.setPagination(totalPage, page);
         if (page < 1) {
             page = 1;
-        }
-       else if (page > paginationDTO.getTotalPage()) {
+        } else if (page > paginationDTO.getTotalPage()) {
             page = paginationDTO.getTotalPage();
         }
         Integer offSet = size * (page - 1);
@@ -63,7 +60,7 @@ public class TextService {
         return paginationDTO;
     }
 
-	public PaginationDTO list(Integer userId, Integer page, Integer size) {
+    public PaginationDTO list(Integer userId, Integer page, Integer size) {
         Integer totalPage;
         Integer totalCount = textMapper.countById(userId);
         if (totalCount % size == 0) {
@@ -71,9 +68,8 @@ public class TextService {
         } else {
             totalPage = totalCount / size + 1;
         }
-        if(totalCount==0)
-        {
-            totalPage=1;
+        if (totalCount == 0) {
+            totalPage = 1;
         }
         PaginationDTO paginationDTO = new PaginationDTO();
         if (page < 1) {
@@ -82,14 +78,13 @@ public class TextService {
         if (page > totalPage) {
             page = totalPage;
         }
-        if(totalCount==0)
-        {
-            totalPage=1;
+        if (totalCount == 0) {
+            totalPage = 1;
         }
         paginationDTO.setPagination(totalPage, page);
 
         Integer offSet = size * (page - 1);
-        List<Text> texts = textMapper.myList(userId,offSet, size);
+        List<Text> texts = textMapper.myList(userId, offSet, size);
         List<TextDTO> textDtoList = new ArrayList<>();
 
         for (Text text : texts) {
@@ -102,16 +97,30 @@ public class TextService {
         paginationDTO.setTexts(textDtoList);
 
         return paginationDTO;
-	}
+    }
 
-	public TextDTO getById(Integer id) {
-        Text text=textMapper.getBuId(id);
-        TextDTO textDTO=new TextDTO();
+    public TextDTO getById(Integer id) {
+        Text text = textMapper.getById(id);
+        TextDTO textDTO = new TextDTO();
         BeanUtils.copyProperties(text, textDTO);
         User user = userMapper.findById(text.getCreator());
         textDTO.setUser(user);
 
-		return textDTO;
-	}
+        return textDTO;
+    }
+
+    public void createOrUpdate(Text text) {
+        if (text.getId() == null) {
+            // 创建
+            text.setGmtCreate(System.currentTimeMillis());
+            text.setGmtModified(text.getGmtCreate());
+            textMapper.create(text);
+
+        } else {
+            // 更新
+            text.setGmtModified(System.currentTimeMillis());
+            textMapper.update(text);
+        }
+    }
 
 }
