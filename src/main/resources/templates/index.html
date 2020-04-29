@@ -11,7 +11,15 @@
   <script src="js/jquery-3.5.0.min.js"></script>
   <script src="js/bootstrap.js" type="application/javascript"></script>
 </head>
-
+<script type="application/javascript">
+  window.onload = function () {
+      var closable = window.localStorage.getItem("closable");
+      if (closable == "true") {
+          window.close();
+          window.localStorage.removeItem("closable");
+      }
+  }
+</script>
 <body>
   <div th:insert="navigation :: nav"></div>
   <div class="container-fluid main">
@@ -20,7 +28,20 @@
         <h2>
           <span class="glyphicon glyphicon-list" aria-hidden="true"></span>发现
         </h2>
-        <hr>
+        <ul class="nav nav-tabs">
+          <li role="presentation" th:class="${sort == 'new' || sort == '' ? 'active':'active'}">
+              <a th:href="@{/(sort='new')}">最新</a>
+          </li>
+          <li role="presentation" th:class="${sort == 'hot30' ? 'active':''}">
+              <a th:href="@{/(sort='hot30')}">人生经历</a>
+          </li>
+          <li role="presentation" th:class="${sort == 'hot7' ? 'active':''}">
+              <a th:href="@{/(sort='hot7')}">个人创意</a>
+          </li>
+          <li role="presentation" th:class="${sort == 'hot' ? 'active':''}">
+              <a th:href="@{/(sort='hot')}">专业知识</a>
+          </li>
+      </ul>
         <div class="media" th:each="text,textStat:${pagination.texts}">
           <div class="media-left">
             <a href="#">
