@@ -3,7 +3,7 @@ package com.example.demo.dto;
 import lombok.Data;
 
 @Data
-public class CommentDTO {
+public class CommentCreateDTO {
     private Integer parentId;
     private String content;
     private Integer type;
