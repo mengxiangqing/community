@@ -16,7 +16,7 @@ public interface TextMapper {
     void create(Text text);
 
     // 为了分页展示，offset偏移量，size尺寸
-    @Select("select * from text limit #{offSet},#{size}")
+    @Select("select * from text ORDER BY gmt_modified DESC limit #{offSet},#{size} ")
     List<Text> list(Integer offSet, Integer size);
 
     // 为了找出一共有多少数据
