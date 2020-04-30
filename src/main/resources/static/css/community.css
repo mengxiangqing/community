@@ -104,11 +104,11 @@ body {
     color: #499ef3;
 }
 
-.comment-icon {
+.menu .comment-icon {
     font-size: 15px;
     cursor: pointer;
 }
 
-.comment-icon :hover {
+.menu .comment-icon :hover {
     color: #499ef3;
 }
