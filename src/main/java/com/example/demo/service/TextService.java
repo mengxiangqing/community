@@ -21,7 +21,7 @@ public class TextService {
 
     @Autowired
     private UserMapper userMapper;
-
+    // 找出所有的文章
     public PaginationDTO list(Integer page, Integer size) {
 
         PaginationDTO paginationDTO = new PaginationDTO();
@@ -62,7 +62,7 @@ public class TextService {
 
         return paginationDTO;
     }
-
+    // 找出该用户的所有文章
     public PaginationDTO list(Integer userId, Integer page, Integer size) {
         Integer totalPage;
         Integer totalCount = textMapper.countById(userId);
@@ -102,6 +102,7 @@ public class TextService {
         return paginationDTO;
     }
 
+    //找到这个id的文章
     public TextDTO getById(Integer id) {
         Text text = textMapper.getById(id);// 通过id找到文章
         TextDTO textDTO = new TextDTO();// 创建传输对象
@@ -111,7 +112,7 @@ public class TextService {
 
         return textDTO;
     }
-
+    //创建或更新文章
     public void createOrUpdate(Text text) {
         if (text.getId() == null) {
             // 创建
