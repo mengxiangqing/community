@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.demo.dto.CommentDTO;
 import com.example.demo.dto.TextDTO;
+import com.example.demo.model.Comment;
 import com.example.demo.service.CommentService;
 import com.example.demo.service.TextService;
 
@@ -24,11 +25,16 @@ public class TextController {
     public String text(@PathVariable(name = "id") Integer id,
                        Model model) {
        TextDTO textDTO= textService.getById(id);
-       List<CommentDTO> comments = commentService.listByTextId(id);
+       List<CommentDTO> comments = commentService.listByTargetId(id,1);
        //增加阅读数
        textService.incView(id);
        model.addAttribute("text", textDTO);
        model.addAttribute("comments", comments);
+       for (CommentDTO commentDTO : comments) {
+           Integer commentId=commentDTO.getId();
+           List<CommentDTO> commentChildLists=commentService.listByTargetId(commentId, 2);
+           model.addAttribute("commentDTOS", commentChildLists);
+       }
         return "text";
     }
 }

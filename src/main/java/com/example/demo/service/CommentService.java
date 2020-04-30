@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.dto.CommentDTO;
+import com.example.demo.enums.CommentTypeEnum;
 import com.example.demo.mapper.CommentMapper;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.Comment;
@@ -25,8 +26,8 @@ public class CommentService {
         commentMapper.insert(comment);
 	}
 
-	public List<CommentDTO> listByTextId(Integer id) {
-        List<Comment> comments = commentMapper.listByTextId(id);
+	public List<CommentDTO> listByTargetId(Integer id,Integer type) {
+        List<Comment> comments = commentMapper.listByTargetId(id,type);
         List<CommentDTO> commentDTOs=new ArrayList<>();
         for(Comment comment:comments)
         {
@@ -38,5 +39,6 @@ public class CommentService {
         }
 		return commentDTOs;
 	}
+
 
 }

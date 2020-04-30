@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.example.demo.enums.CommentTypeEnum;
+
 import lombok.Data;
 
 @Data

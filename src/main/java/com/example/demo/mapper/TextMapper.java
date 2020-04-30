@@ -24,7 +24,7 @@ public interface TextMapper {
     Integer count();
 
     // 分页展示我的文章
-    @Select("select * from text where creator=#{userId} limit #{offSet},#{size}")
+    @Select("select * from text  where creator=#{userId} ORDER BY gmt_modified DESC limit #{offSet},#{size}")
     List<Text> myList(Integer userId, Integer offSet, Integer size);
 
     // 找出我的文章总数
@@ -32,7 +32,7 @@ public interface TextMapper {
     Integer countById(Integer userId);
 
     // 寻找文章
-    @Select("select * from text where id=#{id}")
+    @Select("select *  from text  where id=#{id} ORDER BY gmt_modified DESC")
     Text getById(Integer id);
 
     // 更新文章
