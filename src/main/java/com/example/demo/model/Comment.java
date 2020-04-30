@@ -6,7 +6,7 @@ import lombok.Data;
 public class Comment {
     private Integer id;
 
-    private Integer parentId;
+    private Integer parentID;
 
     private Integer type;
 
