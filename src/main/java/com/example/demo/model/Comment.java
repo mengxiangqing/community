@@ -7,7 +7,7 @@ public class Comment {
     private Integer id;
 
     private Integer parentID;
-
+    // type 为1是对文章的评论。2是对评论的评论
     private Integer type;
 
     private Integer commenter;
@@ -22,5 +22,4 @@ public class Comment {
 
     private String content;
 
-    
 }

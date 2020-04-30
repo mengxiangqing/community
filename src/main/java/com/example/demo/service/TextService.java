@@ -131,4 +131,9 @@ public class TextService {
         textMapper.updateViewCount(text);
     }
 
+	public void incComment(Integer parentId) {
+        Text text = textMapper.getById(parentId);
+        textMapper.updateCommentCount(text);
+	}
+
 }

@@ -6,8 +6,10 @@ import com.example.demo.dto.CommentDTO;
 import com.example.demo.dto.ResultDTO;
 import com.example.demo.exception.CustomizeErrorCode;
 import com.example.demo.model.Comment;
+import com.example.demo.model.Text;
 import com.example.demo.model.User;
 import com.example.demo.service.CommentService;
+import com.example.demo.service.TextService;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class CommentController {
     
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private TextService textService;
 
    @ResponseBody
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
@@ -43,6 +47,7 @@ public class CommentController {
         comment.setCommenter(21);
         comment.setLikeCount(0);
         comment.setCommenter(user.getId());
+        textService.incComment(commentDTO.getParentId());
         comment.setCommentCount(0);
         commentService.insert(comment);
   

@@ -42,4 +42,7 @@ public interface TextMapper {
     // 更新阅读数
     @Update("update text set view_count=view_count+1 where id=#{id} ")
     void updateViewCount(Text text);
+    //更新评论数
+    @Update("update text set comment_count=comment_count+1 where id=#{id} ")
+	void updateCommentCount(Text text);
 }
