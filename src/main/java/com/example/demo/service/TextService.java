@@ -5,8 +5,10 @@ import java.util.List;
 
 import com.example.demo.dto.PaginationDTO;
 import com.example.demo.dto.TextDTO;
+import com.example.demo.mapper.CommentMapper;
 import com.example.demo.mapper.TextMapper;
 import com.example.demo.mapper.UserMapper;
+import com.example.demo.model.Comment;
 import com.example.demo.model.Text;
 import com.example.demo.model.User;
 
@@ -21,6 +23,9 @@ public class TextService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private CommentMapper commentMapper;
     // 找出所有的文章
     public PaginationDTO list(Integer page, Integer size) {
 
@@ -132,9 +137,16 @@ public class TextService {
         textMapper.updateViewCount(text);
     }
 
-	public void incComment(Integer parentId) {
-        Text text = textMapper.getById(parentId);
-        textMapper.updateCommentCount(text);
+	public void incComment(Integer parentId, Integer integer) {
+        if(integer==1){
+            Text text = textMapper.getById(parentId);
+            textMapper.updateCommentCount(text);
+        }
+     else if(integer==2)
+       { Comment comment=commentMapper.getById(parentId);
+        commentMapper.updateCommentCount(comment);
+    }
+      
 	}
 
 }

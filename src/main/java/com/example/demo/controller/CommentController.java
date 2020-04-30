@@ -53,7 +53,7 @@ public class CommentController {
         comment.setGmtModified(System.currentTimeMillis());
         comment.setLikeCount(0);
         comment.setCommenter(user.getId());
-        textService.incComment(commentDTO.getParentId());
+        textService.incComment(commentDTO.getParentId(),commentDTO.getType());
         comment.setCommentCount(0);
         commentService.insert(comment);
 
@@ -64,9 +64,7 @@ public class CommentController {
     @RequestMapping(value = "/comment/{id}", method = RequestMethod.GET)
     public ResultDTO<List<CommentDTO>> comments(@PathVariable(name = "id") Integer id,Model model) {
         List<CommentDTO> commentDTOS = commentService.listByTargetId(id,2);
-
         model.addAttribute("commentDTOS", commentDTOS);
-
         return ResultDTO.okOf(commentDTOS);
     }
 }

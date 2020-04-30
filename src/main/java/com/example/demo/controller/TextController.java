@@ -30,11 +30,6 @@ public class TextController {
        textService.incView(id);
        model.addAttribute("text", textDTO);
        model.addAttribute("comments", comments);
-       for (CommentDTO commentDTO : comments) {
-           Integer commentId=commentDTO.getId();
-           List<CommentDTO> commentChildLists=commentService.listByTargetId(commentId, 2);
-           model.addAttribute("commentDTOS", commentChildLists);
-       }
         return "text";
     }
 }

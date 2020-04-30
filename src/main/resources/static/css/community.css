@@ -39,7 +39,6 @@ body {
     color: #999;
     margin-bottom: 15px;
     margin-left: 15px;
-
 }
 
 .comments {
@@ -102,5 +101,14 @@ body {
 }
 
 .menu .active {
+    color: #499ef3;
+}
+
+.comment-icon {
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.comment-icon :hover {
     color: #499ef3;
 }
