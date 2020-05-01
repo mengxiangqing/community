@@ -18,11 +18,16 @@ public interface TextMapper {
     // 为了分页展示，offset偏移量，size尺寸
     @Select("select * from text ORDER BY gmt_modified DESC limit #{offSet},#{size} ")
     List<Text> list(Integer offSet, Integer size);
+    @Select("select * from text WHERE title REGEXP '${search}' ORDER BY gmt_modified DESC limit #{offSet},#{size} ")
+    List<Text> listBySearch(String search,Integer offSet, Integer size);
 
     // 为了找出一共有多少数据
     @Select("select count(1) from text")
     Integer count();
 
+    @Select("select count(1) from text WHERE title REGEXP '${search}'")
+    Integer countBySearch(String search);
+    
     // 分页展示我的文章
     @Select("select * from text  where creator=#{userId} ORDER BY gmt_modified DESC limit #{offSet},#{size}")
     List<Text> myList(Integer userId, Integer offSet, Integer size);

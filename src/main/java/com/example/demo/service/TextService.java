@@ -34,6 +34,7 @@ public class TextService {
 
         PaginationDTO paginationDTO = new PaginationDTO();
         // 数据总数
+     
         Integer totalCount = textMapper.count();
         // 计算页码
         Integer totalPage;
@@ -155,6 +156,48 @@ public class TextService {
             commentMapper.updateCommentCount(comment);
         }
 
+    }
+
+	public PaginationDTO listBySearch(String search, Integer page, Integer size) {
+	
+        PaginationDTO paginationDTO = new PaginationDTO();
+        // 数据总数
+     
+        Integer totalCount = textMapper.countBySearch(search);
+        // 计算页码
+        Integer totalPage;
+        if (totalCount == 0) {
+            totalPage = 1;
+        }
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
+        } else {
+            totalPage = totalCount / size + 1;
+        }
+        if (totalCount == 0) {
+            totalPage = 1;
+        }
+        paginationDTO.setPagination(totalPage, page);
+        // 页码数据处理
+        if (page < 1) {
+            page = 1;
+        } else if (page > paginationDTO.getTotalPage()) {
+            page = paginationDTO.getTotalPage();
+        }
+        Integer offSet = size * (page - 1);
+        List<Text> texts = textMapper.listBySearch(search,offSet, size);
+        List<TextDTO> textDtoList = new ArrayList<>();
+
+        for (Text text : texts) {
+            User user = userMapper.findById(text.getCreator());
+            TextDTO textDTO = new TextDTO();
+            BeanUtils.copyProperties(text, textDTO);
+            textDTO.setUser(user);
+            textDtoList.add(textDTO);
+        }
+        paginationDTO.setTexts(textDtoList);
+
+        return paginationDTO;
     }
 
 }
