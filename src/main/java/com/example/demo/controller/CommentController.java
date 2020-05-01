@@ -75,7 +75,12 @@ public class CommentController {
             notification.setReceiver(user3.getId());
         }
         commentService.insert(comment);//插入评论
-        notificationMapper.insert(notification);
+        if(!(notification.getNotifier().equals(notification.getReceiver())))
+        {
+            //自己回复自己不给通知
+            notificationMapper.insert(notification);
+
+        }
         return ResultDTO.okOf();
     }
 

@@ -31,7 +31,7 @@
                                 <a th:href="@{'/text/'+${text.id}}" th:text="${text.title}"></a>
                             </h4>
                             <span class="text-desc">
-              <span th:text="${text.commentCount}"></span>个评论·<span th:text="${text.viewCount}"></span>个浏览·<span th:text="${#dates.format(text.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
+                                <span th:text="${text.commentCount}"></span>个评论·<span th:text="${text.viewCount}"></span>个浏览·<span th:text="${#dates.format(text.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
                             </span>
                         </div>
                     </div>
@@ -69,9 +69,19 @@
                     <div th:each="notification,notificationStat:${pagination.notificationDTOs}">
                         <h4>
                             <a th:text="${notification.notifierName}"></a>
-                        </h4>
+                            <span th:if="${notification.type}==1">评论了您的文章
+                                <a th:href="@{'/text/'+${notification.outerId}}" th:text="${notification.outerTitle}">
+                                </a>
 
-                        <span th:text="${#dates.format(notification.gmtCreate, 'yyyy-MM-dd HH:mm')} "></span>
+                            </span>
+                            <span th:if="${notification.type}==2">回复了您的评论
+                                <a th:href="@{'/text/'+${notification.outerId}}" th:text="${notification.outerTitle}">
+                                </a>
+
+                            </span>
+                            <span class="pull-right" th:text=" ${#dates.format(notification.gmtCreate, 'yyyy-MM-dd HH:mm')} "></span>
+                        </h4>
+                        <hr>
                     </div>
                 </div>
             </div>
