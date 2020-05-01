@@ -73,18 +73,21 @@
                         发表评论
                     </h4>
                     <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="media col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment_section"></div>
-                    <div class="media-left">
-                        <a href="#">
-                            <img class="media-object img-rounded" th:src="${session.user.getImageUrl()}" />
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading ">
-                            <span th:text="${session.user.getName()}"></span>
-                        </h4>
+                    <div class="media col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment_section" th:if="${session.user}">
 
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object img-rounded" th:src="${session.user.getImageUrl()}" />
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading ">
+                                <span th:text="${session.user.getName()}"></span>
+                            </h4>
+
+                        </div>
                     </div>
+
 
                     <input type="hidden" id="question_id" th:value="${text.id}">
                     <textarea class="form-control comments" rows="6" id="comment_content"></textarea>
