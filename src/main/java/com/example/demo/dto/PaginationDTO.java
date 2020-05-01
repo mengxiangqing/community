@@ -8,12 +8,13 @@ import lombok.Data;
 @Data
 public class PaginationDTO {
     private List<TextDTO> texts;
+    private List<NotificationDTO> notificationDTOs;
+
     private boolean showPrevious;
     private boolean showFirstPage;
     private boolean showNext;
     private boolean showEndPage;
     private Integer totalPage;// 最后一页
-
     private Integer page;
     private List<Integer> pages = new ArrayList<>();
 
