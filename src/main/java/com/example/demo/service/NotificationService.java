@@ -91,4 +91,9 @@ public class NotificationService {
         return paginationDTO;
     }
 
+    //查找未读通知数
+    public Integer unreadCount(Integer id){
+        Integer unreadCount= notificationMapper.countById(id);
+        return unreadCount;
+    }
 }

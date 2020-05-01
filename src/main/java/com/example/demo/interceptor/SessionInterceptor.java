@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.User;
+import com.example.demo.service.NotificationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,8 @@ public class SessionInterceptor implements HandlerInterceptor {
     @Autowired
     private UserMapper UserMapper;
     
-    
+    @Autowired
+    private NotificationService notificationService;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
@@ -31,6 +33,9 @@ public class SessionInterceptor implements HandlerInterceptor {
                     User user = UserMapper.findByToken(token);
                     if (user != null) {
                         request.getSession().setAttribute("user", user);
+                        Integer unreadCount=notificationService.unreadCount(user.getId());
+                        request.getSession().setAttribute("unreadCount", unreadCount);
+                        
                     }
                     break;
                 }

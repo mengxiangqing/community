@@ -35,4 +35,7 @@ public interface NotificationMapper {
 
     @Select("select * from notification  where receiver=#{id} ORDER BY gmt_create DESC limit #{offSet},#{size}")
 	List<Notification> myList(Integer id, Integer offSet, Integer size);
+
+     @Select("select count(1) from notification where receiver=#{id} and status=0" ) 
+	Integer countById(Integer id);
 }
