@@ -26,6 +26,7 @@ public class CommentService {
         commentMapper.insert(comment);
 	}
 
+    // 根据ID找评论
 	public List<CommentDTO> listByTargetId(Integer id,Integer type) {
         List<Comment> comments = commentMapper.listByTargetId(id,type);
         List<CommentDTO> commentDTOs=new ArrayList<>();
@@ -38,7 +39,16 @@ public class CommentService {
             commentDTOs.add(commentDTO);
         }
 		return commentDTOs;
-	}
+    }
+     //找到这个id的评论
+     public CommentDTO getById(Integer id) {
+        Comment comment= commentMapper.getById(id);// 通过id找到
+        CommentDTO commentDTO = new CommentDTO();// 创建传输对象
+        BeanUtils.copyProperties(comment, commentDTO);// 复制过去
+        User user = userMapper.findById(comment.getCommenter());// 通过评论者找到用户表中的用户
+        commentDTO.setUser(user);
+        return commentDTO;
+    }
 
 
 }
