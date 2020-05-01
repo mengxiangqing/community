@@ -89,6 +89,6 @@ public class CommentController {
     public ResultDTO<List<CommentDTO>> comments(@PathVariable(name = "id") Integer id, Model model) {
         List<CommentDTO> commentDTOS = commentService.listByTargetId(id, 2);
         model.addAttribute("commentDTOS", commentDTOS);
-        return ResultDTO.okOf();
+        return ResultDTO.okOf(commentDTOS);
     }
 }
