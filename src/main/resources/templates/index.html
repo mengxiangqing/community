@@ -2,8 +2,8 @@
 <html xmlns="http://www.thymeleaf.org">
 
 <head>
-  <link rel="icon" href="images/爱心.png" type="image/x-icon"/>
-  <title>人生驿站 </title>
+  <link rel="icon" href="images/爱心.png" type="image/x-icon" />
+  <title>❥(^_-) </title>
 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -23,6 +23,7 @@
 </script>
 
 <div th:insert="navigation :: nav"></div>
+
 <body>
   <div class="container-fluid main">
     <div class="row">
@@ -30,24 +31,24 @@
         <h2>
           <span class="glyphicon glyphicon-list" aria-hidden="true"></span>发现
         </h2>
-        <ul class="nav nav-tabs" >
-  
+        <ul class="nav nav-tabs">
 
-            <li role="presentation" th:class="${column == 'new' || column == '' ? 'active':''}">
-              <a th:href="@{/(column='new')}">最新</a>
-             
-            </li>
-            <li role="presentation" th:class="${column == 'experience' ? 'active':''}">
-              <a th:href="@{/(column='experience')}">人生经历</a>
-            </li>
-           
-            <li role="presentation" th:class="${column == 'idea' ? 'active':''}">
-              <a th:href="@{/(column='idea')}">个人创意</a>
-            </li>
-           
-            <li role="presentation" th:class="${column == 'knowledge' ? 'active':''}">
-              <a th:href="@{/(column='knowledge')}">专业知识</a>
-            </li>
+
+          <li role="presentation" th:class="${column == 'new' || column == '' ? 'active':''}">
+            <a th:href="@{/(column='new')}">最新</a>
+
+          </li>
+          <li role="presentation" th:class="${column == 'experience' ? 'active':''}">
+            <a th:href="@{/(column='experience')}">人生经历</a>
+          </li>
+
+          <li role="presentation" th:class="${column == 'idea' ? 'active':''}">
+            <a th:href="@{/(column='idea')}">个人创意</a>
+          </li>
+
+          <li role="presentation" th:class="${column == 'knowledge' ? 'active':''}">
+            <a th:href="@{/(column='knowledge')}">专业知识</a>
+          </li>
 
         </ul>
         <div class="media" th:each="text,textStat:${pagination.texts}">
@@ -60,12 +61,17 @@
             <h4 class="media-heading">
               <a th:href="@{'/text/'+${text.id}}" th:text="${text.title}"></a>
             </h4>
+            <h5 class=" media-body-desc">
 
-            <span class="text-desc">
+              <span th:text="${text.description}"></span>
+            </h5>
+            <span class="text-desc pull-right">
               <span th:text="${text.commentCount}"></span>个评论·<span th:text="${text.viewCount}"></span>个浏览·<span
                 th:text="${#dates.format(text.gmtCreate,'yyyy-MM-dd HH:mm')}"
                 ></span>
               </span>
+        
+              <hr>
             </div>
           </div>
           <nav aria-label="Page navigation">
