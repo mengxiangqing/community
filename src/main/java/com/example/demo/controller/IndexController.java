@@ -35,10 +35,9 @@ public class IndexController {
             }
         } else {
             if (search.isEmpty()) {
-                if (column == "new") {
+                if (column.equals("new")) {
                     pagination = textService.list(page, size);
                 } else
-    
                 {
                     pagination = textService.listByColumn(column, page, size);
                 }
