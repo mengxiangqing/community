@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface TextMapper {
     // 创建文章
-    @Insert("insert into text(title,description,gmt_create,gmt_modified,creator)values(#{title},#{description},#{gmtCreate},#{gmtModified},#{creator})")
+    @Insert("insert into text(title,description,gmt_create,gmt_modified,creator,tag)values(#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{tag})")
     void create(Text text);
 
     // 为了分页展示，offset偏移量，size尺寸
@@ -50,4 +50,11 @@ public interface TextMapper {
     //更新评论数
     @Update("update text set comment_count=comment_count+1 where id=#{id} ")
 	void updateCommentCount(Text text);
+
+    @Select("select count(1) from text where tag='${column}'")
+    Integer countByColumn(String column);
+    
+    
+    @Select("select * from text WHERE tag='${column}' ORDER BY gmt_modified DESC limit #{offSet},#{size} ")
+    List<Text> listByColumn(String column,Integer offSet, Integer size);
 }

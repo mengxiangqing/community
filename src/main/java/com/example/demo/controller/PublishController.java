@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import com.example.demo.dto.TextDTO;
-import com.example.demo.mapper.TextMapper;
 import com.example.demo.model.Text;
 import com.example.demo.model.User;
 import com.example.demo.service.TextService;
@@ -41,7 +40,7 @@ public class PublishController {
     @PostMapping("/publish")
     public String DoPublish(@RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "description", required = false) String description,
-            @RequestParam(value = "title", required = false) String tag, // 暂时将标题作为专栏
+            @RequestParam(value = "tag", required = false) String tag, 
             @RequestParam(value = "id", required = false) Integer id,
             HttpServletRequest request, 
             Model model) {

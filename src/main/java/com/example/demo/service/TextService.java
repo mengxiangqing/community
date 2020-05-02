@@ -34,7 +34,7 @@ public class TextService {
 
         PaginationDTO paginationDTO = new PaginationDTO();
         // 数据总数
-     
+
         Integer totalCount = textMapper.count();
         // 计算页码
         Integer totalPage;
@@ -72,19 +72,60 @@ public class TextService {
         return paginationDTO;
     }
 
+    // 根据专栏挑选
+    public PaginationDTO listByColumn(String column, Integer page, Integer size) {
+        PaginationDTO paginationDTO = new PaginationDTO();
+        // 数据总数
+
+        Integer totalCount = textMapper.countByColumn(column);
+        // 计算页码
+        Integer totalPage;
+        if (totalCount == 0) {
+            totalPage = 1;
+        }
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
+        } else {
+            totalPage = totalCount / size + 1;
+        }
+        if (totalCount == 0) {
+            totalPage = 1;
+        }
+        paginationDTO.setPagination(totalPage, page);
+        // 页码数据处理
+        if (page < 1) {
+            page = 1;
+        } else if (page > paginationDTO.getTotalPage()) {
+            page = paginationDTO.getTotalPage();
+        }
+        Integer offSet = size * (page - 1);
+        List<Text> texts = textMapper.listByColumn(column,offSet, size);
+        List<TextDTO> textDtoList = new ArrayList<>();
+
+        for (Text text : texts) {
+            User user = userMapper.findById(text.getCreator());
+            TextDTO textDTO = new TextDTO();
+            BeanUtils.copyProperties(text, textDTO);
+            textDTO.setUser(user);
+            textDtoList.add(textDTO);
+        }
+        paginationDTO.setTexts(textDtoList);
+
+        return paginationDTO;
+    }
+
     // 找出该用户的所有文章
     public PaginationDTO list(Integer userId, Integer page, Integer size) {
         Integer totalPage;
         Integer totalCount = textMapper.countById(userId);
-        if (totalCount == 0)
-        {
+        if (totalCount == 0) {
             return null;
         }
-            if (totalCount % size == 0) {
-                totalPage = totalCount / size;
-            } else {
-                totalPage = totalCount / size + 1;
-            }
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
+        } else {
+            totalPage = totalCount / size + 1;
+        }
         if (totalCount == 0) {
             totalPage = 1;
         }
@@ -158,11 +199,11 @@ public class TextService {
 
     }
 
-	public PaginationDTO listBySearch(String search, Integer page, Integer size) {
-	
+    public PaginationDTO listBySearch(String search, Integer page, Integer size) {
+
         PaginationDTO paginationDTO = new PaginationDTO();
         // 数据总数
-     
+
         Integer totalCount = textMapper.countBySearch(search);
         // 计算页码
         Integer totalPage;
@@ -185,7 +226,7 @@ public class TextService {
             page = paginationDTO.getTotalPage();
         }
         Integer offSet = size * (page - 1);
-        List<Text> texts = textMapper.listBySearch(search,offSet, size);
+        List<Text> texts = textMapper.listBySearch(search, offSet, size);
         List<TextDTO> textDtoList = new ArrayList<>();
 
         for (Text text : texts) {

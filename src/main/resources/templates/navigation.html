@@ -9,7 +9,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">
-                        <img src="images/爱心.png" style="width: 20px;">
+                        <img src="/images/爱心.png" style="width: 20px;">
                       </a>
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                         data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -30,6 +30,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li th:if="${session.user != null}">
                                 <a href="/publish">发表文章</a>
+                               
                             </li>
                             <li><a href="/profile/replies">通知中心 <span class="badge"
                                         th:text="${session.unreadCount}"></span></a></li>
