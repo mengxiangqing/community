@@ -41,7 +41,7 @@ public interface TextMapper {
     Text getById(Integer id);
 
     // 更新文章
-    @Update("update text set title=#{title},description=#{description},gmt_modified=#{gmtModified} where id=#{id} ")
+    @Update("update text set title=#{title},description=#{description},gmt_modified=#{gmtModified},tag=#{tag} where id=#{id} ")
     void update(Text text);
 
     // 更新阅读数
