@@ -2,6 +2,7 @@
 <html xmlns="http://www.thymeleaf.org">
 
 <head>
+    <link rel="icon" href="images/爱心.png" type="image/x-icon"/>
     <title>发表----人生驿站</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
@@ -58,6 +59,12 @@
                             <div class="alert alert-danger col-lg-9 col-md-12 col-sm-12 col-xs-12" th:text="${error}"
                                 th:if="${error !=null}"></div>
                             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                <select class="form-control btn-publish" style="widows: 230px;" id="issueTemplate">
+                                    <option value="-1" disabled="" selected="">请选择专栏</option>
+                                    <option value="0">个人创意</option>
+                                    <option value="1">人生经历</option>
+                                    <option value="2">专业知识</option>
+                                </select>
                                 <button type="submit" class="btn btn-success btn-publish">
                                     发布
                                 </button>
@@ -71,6 +78,7 @@
                 •标题：请用简洁的语言描述您的内容<br /><br /> •详细内容：详细补充您的内容，并确保描述清晰直观，并提供相关资料
                 <br /><br /> •选择板块：必须选择相应的板块发表文章
                 <br />
+               
             </div>
         </div>
     </div>

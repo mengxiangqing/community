@@ -8,12 +8,16 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <img src="images/爱心.png" style="width: 20px;">
+                      </a>
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                         data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                         <span class="sr-only">人生驿站</span>
                     </button>
                     <a class="navbar-brand" href="/">人生驿站</a>
                 </div>
+
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <form class="navbar-form navbar-left" action="/" method="get">
                         <div class="form-group">
@@ -29,11 +33,9 @@
                             </li>
                             <li><a href="/profile/replies">通知中心 <span class="badge"
                                         th:text="${session.unreadCount}"></span></a></li>
-
                             <li class="dropdown" th:if="${session.user != null}">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                     aria-haspopup="true" aria-expanded="false">
-                                    <!-- <img class="media-object img-rounded" th:src="${session.user.getImageUrl()}" /> -->
                                     <span th:text="${session.user.getName()}"></span>
                                     <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
